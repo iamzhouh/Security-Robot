@@ -1,20 +1,22 @@
 package com.example.securityrobot_android;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String serverUrl = "tcp://175.27.245.39:1883";
-    private String userName = "mosquitto";
-    private String passWord = "mosquitto";
-    private String mqtt_sub_topic = "test";
+    private String serverUrl = "tcp://175.27.245.39:1883";   //MQTT服务器 端口
+    private String userName = "mosquitto";   //MQTT用户名
+    private String passWord = "mosquitto";   //MQTT密码
+    private String mqtt_sub_topic = "monitor";  //订阅的主题
     private String clientId = "app"+System.currentTimeMillis();
     private MqttClient mqtt_client;                         //创建一个mqtt_client对象
     MqttConnectOptions options;
@@ -24,13 +26,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        makeToast("MQTT连接中...");
         mqtt_init_Connect();
         makeToast("MQTT连接成功");
     }
 
-    public void mqtt_init_Connect()
+    public void mqtt_init_Connect()  //初始化MQTT客户端，建立MQTT连接
     {
         try {
+            TextView Tempvalue = findViewById(R.id.TempValue);
+            TextView Humivalue = findViewById(R.id.HumiValue);
+            TextView Smokevalue = findViewById(R.id.SmokeValue);
             //实例化mqtt_client，填入我们定义的serverUri和clientId，然后MemoryPersistence设置clientid的保存形式，默认为以内存保存
             mqtt_client = new MqttClient(serverUrl,clientId,new MemoryPersistence());
             //创建并实例化一个MQTT的连接参数对象
@@ -49,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void connectionLost(Throwable cause) {
                     //连接丢失后，一般在这里面进行重连
-                    makeToast("connectionLost");
-
+                    cause.printStackTrace();
+                    System.out.println("connectionLost");
                 }
                 @Override
                 public void deliveryComplete(IMqttDeliveryToken token) {
@@ -60,9 +66,43 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void messageArrived(String topicName, MqttMessage message) throws Exception {
                     //subscribe后得到的消息会执行到这里面
-                    System.out.println("接收消息主题 : " + topicName);
-                    System.out.println("接收消息Qos : " + message.getQos());
-                    System.out.println("接收消息内容 : " + new String(message.getPayload()));
+//                    System.out.println("接收消息主题 : " + topicName);
+//                    System.out.println("接收消息Qos : " + message.getQos());
+//                    System.out.println("接收消息内容 : " + new String(message.getPayload()));
+
+                    String[] mess=new String(message.getPayload()).split("#");  //分割收到的数据
+
+                    if(mess.length>=4) {
+                        if (Integer.parseInt(mess[0]) == 0) {     // 有烟雾、燃气
+                            Smokevalue.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Smokevalue.setText("有");
+                                }
+                            });
+                        } else {
+                            Smokevalue.post(new Runnable() {  // 无烟雾、燃气
+                                @Override
+                                public void run() {
+                                    Smokevalue.setText("无");
+                                }
+                            });
+                        }
+
+                        Tempvalue.post(new Runnable() {  //温度显示
+                            @Override
+                            public void run() {
+                                Tempvalue.setText(mess[2] + "%");
+                            }
+                        });
+
+                        Humivalue.post(new Runnable() {  //湿度显示
+                            @Override
+                            public void run() {
+                                Humivalue.setText(mess[3] + "℃");
+                            }
+                        });
+                    }
                 }
             });
             //连接mqtt服务器
@@ -74,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e) {
             e.printStackTrace();
             makeToast(e.toString());
+            System.out.println("error");
+
         }
     }
 
@@ -81,5 +123,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, toast_str, Toast.LENGTH_LONG).show();
     }
 
-
+    public void mqtt_pub(String order){
+        try {
+            mqtt_client.publish(mqtt_sub_topic,new MqttMessage(order.getBytes()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

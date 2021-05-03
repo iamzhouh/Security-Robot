@@ -3,17 +3,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="10px"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/Temp"
+                android:layout_width="wrap_content"
+                android:textSize="70px"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="温度"/>
+
+            <TextView
+                android:id="@+id/Humi"
+                android:layout_width="wrap_content"
+                android:textSize="70px"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="湿度"/>
+
+            <TextView
+                android:id="@+id/Smoke"
+                android:layout_width="wrap_content"
+                android:textSize="70px"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="烟雾、可燃气体"/>
+
+            <TextView
+                android:id="@+id/flame"
+                android:layout_width="wrap_content"
+                android:textSize="70px"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="火焰"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TempValue"
+                android:layout_width="wrap_content"
+                android:textSize="70px"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="Temp"/>
+
+            <TextView
+                android:id="@+id/HumiValue"
+                android:layout_width="wrap_content"
+                android:textSize="70px"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="Humo"/>
+
+            <TextView
+                android:id="@+id/SmokeValue"
+                android:layout_width="wrap_content"
+                android:textSize="70px"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="Smoke"/>
+
+            <TextView
+                android:id="@+id/flameValue"
+                android:layout_width="wrap_content"
+                android:textSize="70px"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="Flame"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
