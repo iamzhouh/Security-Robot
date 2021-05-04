@@ -1,6 +1,12 @@
 package com.example.securityrobot_android;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -17,18 +23,21 @@ public class MainActivity extends AppCompatActivity {
     private String userName = "mosquitto";   //MQTT用户名
     private String passWord = "mosquitto";   //MQTT密码
     private String mqtt_sub_topic = "monitor";  //订阅的主题
+    private String matt_pub_movetop = "move";
     private String clientId = "app"+System.currentTimeMillis();
     private MqttClient mqtt_client;                         //创建一个mqtt_client对象
     MqttConnectOptions options;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         makeToast("MQTT连接中...");
         mqtt_init_Connect();
         makeToast("MQTT连接成功");
+
+
     }
 
     public void mqtt_init_Connect()  //初始化MQTT客户端，建立MQTT连接
@@ -37,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
             TextView Tempvalue = findViewById(R.id.TempValue);
             TextView Humivalue = findViewById(R.id.HumiValue);
             TextView Smokevalue = findViewById(R.id.SmokeValue);
+            ImageView top = findViewById(R.id.image_top);
+            ImageView down = findViewById(R.id.image_down);
+            ImageView left = findViewById(R.id.image_left);
+            ImageView right = findViewById(R.id.image_right);
             //实例化mqtt_client，填入我们定义的serverUri和clientId，然后MemoryPersistence设置clientid的保存形式，默认为以内存保存
             mqtt_client = new MqttClient(serverUrl,clientId,new MemoryPersistence());
             //创建并实例化一个MQTT的连接参数对象
@@ -102,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
                                 Humivalue.setText(mess[3] + "℃");
                             }
                         });
+
                     }
+
                 }
             });
             //连接mqtt服务器
@@ -110,6 +125,78 @@ public class MainActivity extends AppCompatActivity {
             //订阅mqtt服务器
             mqtt_client.subscribe(mqtt_sub_topic,1);
 //            mqtt_client.publish(mqtt_sub_topic,new MqttMessage("hello".getBytes()));
+
+            top.setOnTouchListener(new View.OnTouchListener() {    //向上事件监测
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mqtt_pub(matt_pub_movetop,"top");
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            mqtt_pub(matt_pub_movetop,"stop");
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            System.out.println("top移动");
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+            down.setOnTouchListener(new View.OnTouchListener() {   //向下事件监测
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mqtt_pub(matt_pub_movetop,"down");
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            mqtt_pub(matt_pub_movetop,"stop");
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            System.out.println("down移动");
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+            left.setOnTouchListener(new View.OnTouchListener() {   //向左事件监测
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mqtt_pub(matt_pub_movetop,"left");
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            mqtt_pub(matt_pub_movetop,"stop");
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            System.out.println("left移动");
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+            right.setOnTouchListener(new View.OnTouchListener() {   //向右事件监测
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mqtt_pub(matt_pub_movetop,"right");
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            mqtt_pub(matt_pub_movetop,"stop");
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            System.out.println("right移动");
+                            break;
+                    }
+                    return true;
+                }
+            });
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -119,13 +206,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void makeToast(String toast_str) {  //页面提醒
+    private void makeToast(String toast_str) {  // Android页面提醒
         Toast.makeText(MainActivity.this, toast_str, Toast.LENGTH_LONG).show();
     }
 
-    public void mqtt_pub(String order){
+    public void mqtt_pub(String topic,String order){   // MQTT消息发布
         try {
-            mqtt_client.publish(mqtt_sub_topic,new MqttMessage(order.getBytes()));
+            mqtt_client.publish(topic,new MqttMessage(order.getBytes()));
         } catch (Exception e) {
             e.printStackTrace();
         }
