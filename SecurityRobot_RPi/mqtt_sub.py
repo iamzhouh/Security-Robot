@@ -7,7 +7,7 @@ from queue import *
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code: " + str(rc))
 
-def on_message(client, userdata, msg):
+def on_message(client, userdata, msg):   # 判断收到的消息是什么
     if(str(msg.payload.decode('utf-8')) == 'top'):
         up()
     elif(str(msg.payload.decode('utf-8')) == 'down'):
@@ -18,7 +18,7 @@ def on_message(client, userdata, msg):
         turn_right()
     else:
         stop()
-    # print(str(msg.payload.decode('utf-8')))
+    print(str(msg.payload.decode('utf-8')))
 
 
 def mqtt_sub_init():

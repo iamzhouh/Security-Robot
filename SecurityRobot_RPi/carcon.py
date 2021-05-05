@@ -15,7 +15,7 @@ def move_init():
     GPIO.setup(IN4, GPIO.OUT)
 
 
-def up():
+def up():  # 向前
     GPIO.output(IN1, GPIO.HIGH)
     GPIO.output(IN2, GPIO.LOW)
 
@@ -23,7 +23,7 @@ def up():
     GPIO.output(IN4, GPIO.LOW)
 
 
-def down():
+def down():  # 向后
     GPIO.output(IN1, GPIO.LOW)
     GPIO.output(IN2, GPIO.HIGH)
 
@@ -31,21 +31,21 @@ def down():
     GPIO.output(IN4, GPIO.HIGH)
 
 
-def turn_right():
+def turn_right():  # 右转
     GPIO.output(IN1, GPIO.LOW)
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.HIGH)
     GPIO.output(IN4, GPIO.HIGH)
 
 
-def turn_left():
+def turn_left():   # 左转
     GPIO.output(IN1, GPIO.HIGH)
     GPIO.output(IN2, GPIO.HIGH)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.LOW)
 
 
-def stop():
+def stop():  # 停止
     GPIO.output(IN1, GPIO.LOW)
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.LOW)
