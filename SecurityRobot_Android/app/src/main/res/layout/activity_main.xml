@@ -97,6 +97,7 @@
 
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,7 +105,16 @@
         android:layout_gravity="right"
         android:layout_marginTop="30px"
         tools:ignore="MissingConstraints">
-<!--        向左-->
+
+        <ImageView
+            android:id="@+id/image_FaceDetection"
+            android:layout_marginRight="130px"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/facedetection" />
+
+
         <ImageView
             android:id="@+id/image_left"
             android:layout_width="60dp"
@@ -137,8 +147,9 @@
             android:layout_width="60dp"
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
-
+            android:layout_marginRight="50px"
             android:src="@drawable/rightarrow" />
 
     </LinearLayout>
+
 </LinearLayout>

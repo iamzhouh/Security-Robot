@@ -2,9 +2,12 @@ package com.example.securityrobot_android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +40,17 @@ public class MainActivity extends AppCompatActivity {
         mqtt_init_Connect();
         makeToast("MQTT连接成功");
 
+        ImageView Img_facedetection = findViewById(R.id.image_FaceDetection);
+        Img_facedetection.setOnTouchListener(new View.OnTouchListener() {     //人脸事件监测
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){    //按下松开后运行
+                    Intent intent=new Intent(MainActivity.this, MyWebview.class);  //页面跳转
+                    startActivity(intent);
+                }
+                return true;
+            }
+        });
 
     }
 
