@@ -67,7 +67,7 @@
                 android:textSize="70px"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="Temp"/>
+                android:text="NONE"/>
 
             <TextView
                 android:id="@+id/HumiValue"
@@ -75,7 +75,7 @@
                 android:textSize="70px"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="Humo"/>
+                android:text="NONE"/>
 
             <TextView
                 android:id="@+id/SmokeValue"
@@ -83,7 +83,7 @@
                 android:textSize="70px"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="Smoke"/>
+                android:text="NONE"/>
 
             <TextView
                 android:id="@+id/flameValue"
@@ -91,7 +91,7 @@
                 android:textSize="70px"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="Flame"/>
+                android:text="NONE"/>
 
         </LinearLayout>
 

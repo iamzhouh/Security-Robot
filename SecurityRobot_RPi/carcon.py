@@ -1,3 +1,5 @@
+#树莓派IO口引脚的定义和初始化
+
 import RPi.GPIO as GPIO
 import time
 

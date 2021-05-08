@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mqtt_init_Connect();
         makeToast("MQTT连接成功");
 
+        //监听facedetection的动作
         ImageView Img_facedetection = findViewById(R.id.image_FaceDetection);
         Img_facedetection.setOnTouchListener(new View.OnTouchListener() {     //人脸事件监测
             @Override
