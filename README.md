@@ -19,7 +19,8 @@
 │  │  TempHumi.py		DHT11温湿度传感器
 │  │  ultrasonic.py	超声波传感器
 ├──SecurityRobot_Android    用Android Studio编写
-
+</code></pre>
+</details>
 
 ## 网络端口说明（服务器）
 12000： TCPsocket端口（传输人脸识别图像）
