@@ -22,28 +22,29 @@ def face_rec():
         # 绘制矩形框
         # print(faces)
 
-        if faces != ():
-            face_times = face_times + 1
-        if face_times > 50:
-            for (x, y, w, h) in faces:
+        for (x, y, w, h) in faces:   #画出人脸位置
                 img = cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
                 # print(x, y, w, h)
-                # img_cut = img[y:y+h,x:x+w]
-                data = str(datetime.datetime.now().strftime('%Y-%m-%d'))  # 获取当前的日期
-                year,month,day = data.split('-')[0],data.split('-')[1],data.split('-')[2]
-                # print(year,month,day)
-                for root, dirs, files in os.walk('FaceDetection_Img/'):
-                    # print(dirs)
-                # 当前目录路径,当前路径下所有子目录,当前路径下所有非目录子文件
-                    for dir in dirs:
-                        pre_year,pre_month,pre_day = dir.split('-')[0],dir.split('-')[1],dir.split('-')[2]
-                        if (int(pre_year) < int(year)) | (int(pre_month) < int(month)) | (int(pre_day)+3 < int(day)):
-                            shutil.rmtree('FaceDetection_Img/' + dir)
-                            print('remove')
-                dir = 'FaceDetection_Img/' + data  # 需要创建的目录
-                if not os.path.exists(dir):   # 创建以日期为单位的目录
-                    os.makedirs(dir)
-                img_cut_name = dir +'/'+datetime.datetime.now().strftime('%H-%M-%S') + '.jpg'   # 以秒为单位写入文件
+
+        if faces != ():
+            face_times = face_times + 1
+        if face_times > 0:
+            # img_cut = img[y:y+h,x:x+w]
+            data = str(datetime.datetime.now().strftime('%Y-%m-%d'))  # 获取当前的日期
+            year,month,day = data.split('-')[0],data.split('-')[1],data.split('-')[2]
+            # print(year,month,day)
+            for root, dirs, files in os.walk('FaceDetection_Img/'):
+                # print(dirs)
+            # 当前目录路径,当前路径下所有子目录,当前路径下所有非目录子文件
+                for dir in dirs:
+                    pre_year,pre_month,pre_day = dir.split('-')[0],dir.split('-')[1],dir.split('-')[2]
+                    if (int(pre_year) < int(year)) | (int(pre_month) < int(month)) | (int(pre_day)+3 < int(day)):
+                        shutil.rmtree('FaceDetection_Img/' + dir)
+                        print('remove')
+            dir = 'FaceDetection_Img/' + data  # 需要创建的目录
+            if not os.path.exists(dir):   # 创建以日期为单位的目录
+                os.makedirs(dir)
+            img_cut_name = dir +'/'+datetime.datetime.now().strftime('%H-%M-%S') + '.jpg'   # 以秒为单位写入文件
 
             cv2.imwrite(img_cut_name, img)
             print('cut success!')
