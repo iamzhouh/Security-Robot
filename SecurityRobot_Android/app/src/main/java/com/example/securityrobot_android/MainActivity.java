@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private String matt_pub_movetop = "move";
     private String clientId = "app"+System.currentTimeMillis();
     private MqttClient mqtt_client;                         //创建一个mqtt_client对象
+    private WebView webView;
     MqttConnectOptions options;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        video();
     }
 
     public void mqtt_init_Connect()  //初始化MQTT客户端，建立MQTT连接
@@ -231,5 +237,30 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void video(){
+        webView = (WebView) findViewById(R.id.VideoView);
+        //需要加载的网页的url
+        webView.loadUrl("http://175.27.245.39:5000/");
+//        webView.loadUrl("http://175.27.245.39:80/SecurityRobot_FaceDetection_Img/");
+        WebSettings settings = webView.getSettings();
+        webView.setInitialScale(148);
+        // 如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
+        settings.setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient(){
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                view.loadUrl(url);
+                return true;
+            }
+        });
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                //等待证书响应
+                handler.proceed();
+            }
+        });
     }
 }

@@ -29,7 +29,7 @@ def face_rec():
                     except Exception as e:
                         break
             except Exception as e:
-                print(e)
+                print("Video TCP socket reconnect!")
 
 
     def send_img():

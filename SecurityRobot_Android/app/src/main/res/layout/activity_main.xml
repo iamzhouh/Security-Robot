@@ -151,5 +151,11 @@
             android:src="@drawable/rightarrow" />
 
     </LinearLayout>
+    <WebView
+        android:id="@+id/VideoView"
+        android:layout_width="950px"
+        android:layout_height="700px"
+        android:layout_marginLeft="60px"
+        android:layout_marginTop="40dp"/>
 
 </LinearLayout>
