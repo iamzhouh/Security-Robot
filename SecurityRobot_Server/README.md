@@ -126,5 +126,18 @@ sudo service mosquitto status  # 查看Mosquitto服务状态
    http://175.27.245.39/SecurityRobot_FaceDetection_Img/
    ```
 
-   
+## 四、Flask搭建Web
 
+ 1. root用户终端输入
+
+    ```shell
+    pip3 install flask
+    ```
+
+2. 运行
+
+   ```shell
+   python3 flaskproject/app/py
+   ```
+
+   

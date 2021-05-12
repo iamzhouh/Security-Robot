@@ -45,14 +45,25 @@ public class MainActivity extends AppCompatActivity {
         mqtt_init_Connect();
         makeToast("MQTT连接成功");
 
-        //监听facedetection的动作
-        ImageView Img_facedetection = findViewById(R.id.image_FaceDetection);
-        Img_facedetection.setOnTouchListener(new View.OnTouchListener() {     //人脸事件监测
+        ImageView Img_facedetection = findViewById(R.id.image_FaceDetection);  //监听facedetection的动作
+        ImageView videoReload = findViewById(R.id.VideoReload);  //监听刷新视频监控的动作
+
+        Img_facedetection.setOnTouchListener(new View.OnTouchListener() {     //人脸事件页面跳转监测
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){    //按下松开后运行
-                    Intent intent=new Intent(MainActivity.this, MyWebview.class);  //页面跳转
+                    Intent intent=new Intent(MainActivity.this, MyWebview.class);  //页面刷新
                     startActivity(intent);
+                }
+                return true;
+            }
+        });
+
+        videoReload.setOnTouchListener(new View.OnTouchListener() {    //向上事件监测
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){    //按下松开后运行
+                   webView.reload();
                 }
                 return true;
             }
@@ -243,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.VideoView);
         //需要加载的网页的url
         webView.loadUrl("http://175.27.245.39:5000/");
-//        webView.loadUrl("http://175.27.245.39:80/SecurityRobot_FaceDetection_Img/");
+
         WebSettings settings = webView.getSettings();
         webView.setInitialScale(148);
         // 如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
