@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             TextView Tempvalue = findViewById(R.id.TempValue);
             TextView Humivalue = findViewById(R.id.HumiValue);
             TextView Smokevalue = findViewById(R.id.SmokeValue);
+            TextView Firevalue = findViewById(R.id.fireValue);
             ImageView top = findViewById(R.id.image_top);
             ImageView down = findViewById(R.id.image_down);
             ImageView left = findViewById(R.id.image_left);
@@ -134,6 +135,22 @@ public class MainActivity extends AppCompatActivity {
                             });
                         }
 
+                        if (Integer.parseInt(mess[4]) == 0) {     // 有火
+                            Firevalue.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Firevalue.setText("有");
+                                }
+                            });
+                        } else {
+                            Firevalue.post(new Runnable() {  // 无火
+                                @Override
+                                public void run() {
+                                    Firevalue.setText("无");
+                                }
+                            });
+                        }
+
                         Tempvalue.post(new Runnable() {  //温度显示
                             @Override
                             public void run() {
@@ -147,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                                 Humivalue.setText(mess[3] + "℃");
                             }
                         });
+
 
                     }
 

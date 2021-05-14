@@ -4,7 +4,7 @@ import time
 import datetime
 
 # initialize GPIO
-GPIO.setwarnings(True)
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
 # read data using pin 14

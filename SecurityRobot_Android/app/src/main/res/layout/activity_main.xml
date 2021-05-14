@@ -42,15 +42,15 @@
                 android:textSize="70px"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="烟雾、可燃气体"/>
+                android:text="烟雾和可燃气体"/>
 
             <TextView
-                android:id="@+id/flame"
+                android:id="@+id/fire"
                 android:layout_width="wrap_content"
                 android:textSize="70px"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="火焰"/>
+                android:text="火灾"/>
 
         </LinearLayout>
 
@@ -86,7 +86,7 @@
                 android:text="NONE"/>
 
             <TextView
-                android:id="@+id/flameValue"
+                android:id="@+id/fireValue"
                 android:layout_width="wrap_content"
                 android:textSize="70px"
                 android:layout_gravity="center_horizontal"

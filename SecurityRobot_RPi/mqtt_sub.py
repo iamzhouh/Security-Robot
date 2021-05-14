@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import paho.mqtt.client as mqtt
 from carcon import *
-from queue import *
+
 
 
 def on_connect(client, userdata, flags, rc):
