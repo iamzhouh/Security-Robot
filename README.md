@@ -16,6 +16,7 @@
 │  │  mqtt_pub.py		         MQTT发布消息
 │  │  mqtt_sub.py		         MQTT订阅消息，控制机器人移动
 │  │  smoke.py	                 MQ-2烟雾传感器
+│  │  fire.py                    火焰传感器
 │  │  socket_client.py	         TCP客户端（发送图像给TCP服务器）
 │  │  TempHumi.py		         DHT11温湿度传感器
 │  │  ultrasonic.py	             超声波传感器
