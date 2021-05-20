@@ -1,4 +1,4 @@
-from ultrasonic import *
+
 from smoke import *
 from TempHumi import *
 from mqtt_pub import *
@@ -10,7 +10,7 @@ import threading
 
 def mqtt_message():  # MQTT发布传感器数据
     while True:
-        sensor = str(get_smoke()) + '#' + str(format(get_distance(),'.2f')) + '#' + str(get_dht11()[0]) + '#' + str(get_dht11()[1])+ '#' + str(get_fire())
+        sensor = str(get_smoke()) + '#' + 'zh' + '#' + str(get_dht11()[0]) + '#' + str(get_dht11()[1])+ '#' + str(get_fire())
         print(sensor)  # 烟雾#距离#温度#湿度#火灾
         print("烟雾#距离#温度#湿度#火灾")
         mqtt_publish('175.27.245.39', 1883, 'monitor', sensor)

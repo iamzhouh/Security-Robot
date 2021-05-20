@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
             ImageView down = findViewById(R.id.image_down);
             ImageView left = findViewById(R.id.image_left);
             ImageView right = findViewById(R.id.image_right);
+            ImageView automatic = findViewById(R.id.image_automatic);
+            ImageView maual = findViewById(R.id.image_maual);
             //实例化mqtt_client，填入我们定义的serverUri和clientId，然后MemoryPersistence设置clientid的保存形式，默认为以内存保存
             mqtt_client = new MqttClient(serverUrl,clientId,new MemoryPersistence());
             //创建并实例化一个MQTT的连接参数对象
@@ -243,6 +245,30 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case MotionEvent.ACTION_MOVE:
                             System.out.println("right移动");
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+            automatic.setOnTouchListener(new View.OnTouchListener() {   //向右事件监测
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mqtt_pub(matt_pub_movetop,"automatic");
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+            maual.setOnTouchListener(new View.OnTouchListener() {   //向右事件监测
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mqtt_pub(matt_pub_movetop,"maual");
                             break;
                     }
                     return true;

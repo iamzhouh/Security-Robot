@@ -1,21 +1,78 @@
-import ultrasonic
+from ultrasonic_mid import *
+from ultrasonic_left import *
+from ultrasonic_right import *
+import random
 from carcon import *
 import time
 
-#while True:
-#    if(ultrasonic.get_distance()>=10):
-#        carcon.up()
-#    else:
-#        carcon.turn_right()
-move_init()
-while True:
-    print(ultrasonic.get_distance())
-    if(ultrasonic.get_distance()>=10):
-    	up()
-    elif(ultrasonic.get_distance()<=8):
-        down()
-    else:
-        stop()
-    if (ultrasonic.get_distance()>=300):
+antoormaual = ''
+
+def auto():
+    while True:
+        up()
+        print(antoormaual)
+        while True:
+            if get_distance_left() <= 35:
+                turn_right()
+                time.sleep(0.1)
+                stop()
+                break
+
+            if (get_distance_mid() <= 35) & (get_distance_mid() > 15):
+                turn_right()
+                time.sleep(0.1)
+                stop()
+                break
+
+            if get_distance_right() <= 35:
+                turn_right()
+                time.sleep(0.1)
+                stop()
+                break
+
+            if get_distance_mid() <= 15:
+                down()
+                time.sleep(0.1)
+                stop()
+                break
+
+            if antoormaual == 'maual':
+                break
+        if antoormaual == 'maual':
             break
     stop()
+
+
+
+
+# while True:
+#     up()
+#     while get_distance_mid() <= 20:
+#         if get_distance_left() <= 20 & get_distance_right() > 20:
+#             turn_right()
+#             time.sleep(0.5)
+#         elif get_distance_right() <= 20 & get_distance_left() > 20:
+#             turn_left()
+#             time.sleep(0.5)
+#         elif get_distance_right() <= 20 & get_distance_left() <= 20:
+#             turn_right()
+#             time.sleep(1)
+#         else:
+#             turn_right()
+#             time.sleep(0.5)
+#         stop()
+# stop()
+
+# while True:
+#     turn_right()
+#     time.sleep(0.5)
+#     stop()
+#     time.sleep(1)
+
+#
+# while True:
+#     print("")
+#     print("left   "+str(get_distance_left()))
+#     print("mid    "+str(get_distance_mid()))
+#     print("right  "+str(get_distance_right()))
+#     time.sleep(0.5)

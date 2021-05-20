@@ -1,21 +1,27 @@
 # -*- coding: utf-8 -*-
 import paho.mqtt.client as mqtt
 from carcon import *
-
-
+import auto_navigation
+import threading
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code: " + str(rc))
 
 def on_message(client, userdata, msg):   # 判断收到的消息是什么
-    if(str(msg.payload.decode('utf-8')) == 'top'):
+    if (str(msg.payload.decode('utf-8')) == 'top'):
         up()
-    elif(str(msg.payload.decode('utf-8')) == 'down'):
+    elif (str(msg.payload.decode('utf-8')) == 'down'):
         down()
     elif (str(msg.payload.decode('utf-8')) == 'left'):
         turn_left()
     elif (str(msg.payload.decode('utf-8')) == 'right'):
         turn_right()
+    elif (str(msg.payload.decode('utf-8')) == 'automatic'):
+        auto_navigation.antoormaual = 'automatic'
+        auto1 = threading.Thread(target=auto_navigation.auto)
+        auto1.start()
+    elif (str(msg.payload.decode('utf-8')) == 'maual'):
+        auto_navigation.antoormaual = 'maual'
     else:
         stop()
     print(str(msg.payload.decode('utf-8')))
