@@ -10,7 +10,7 @@ antoormaual = ''
 def auto():
     while True:
         up()
-        print(antoormaual)
+        # print(antoormaual)
         while True:
             if get_distance_left() <= 35:
                 turn_right()

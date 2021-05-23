@@ -137,7 +137,7 @@ sudo service mosquitto status  # 查看Mosquitto服务状态
 2. 运行
 
    ```shell
-   python3 flaskproject/app/py
+   python3 flaskproject/app.py
    ```
 
    
