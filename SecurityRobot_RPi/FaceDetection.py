@@ -74,7 +74,10 @@ def face_rec():
         # 读取数据
         ret, img = cameraCapture.read()
         # 进行人脸检测
-        faces = face_cascade.detectMultiScale(img, 1.3, 5)
+        try:
+            faces = face_cascade.detectMultiScale(img, 1.3, 5)
+        except Exception as e:
+            print(e)
         # 绘制矩形框
         # print(faces)
 

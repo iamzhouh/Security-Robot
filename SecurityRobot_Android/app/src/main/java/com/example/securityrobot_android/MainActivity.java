@@ -157,14 +157,14 @@ public class MainActivity extends AppCompatActivity {
                         Tempvalue.post(new Runnable() {  //温度显示
                             @Override
                             public void run() {
-                                Tempvalue.setText(mess[2] + "%");
+                                Tempvalue.setText(mess[2] + "℃");
                             }
                         });
 
                         Humivalue.post(new Runnable() {  //湿度显示
                             @Override
                             public void run() {
-                                Humivalue.setText(mess[3] + "℃");
+                                Humivalue.setText(mess[3] + "%");
                             }
                         });
 
