@@ -90,7 +90,7 @@ def face_rec():
 
         # 设置显示窗口
         # cv2.namedWindow('camera', cv2.WINDOW_AUTOSIZE)
-        #cv2.resizeWindow('camera', 840, 480)
+        # cv2.resizeWindow('camera', 840, 480)
         # 显示处理后的视频
         # cv2.imshow('camera', img)
         # 读取数据
