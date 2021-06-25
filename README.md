@@ -29,11 +29,17 @@
 ├──SecurityRobot_Android         用Android Studio编写
 </code></pre>
 </details>
+
 ## 网络端口说明（服务器）
+
 12000： TCPsocket端口（传输人脸识别图像）
+
 1883： MQTT端口（传输环境数据）
+
 80： Apache端口 
+
 5000： Flask服务
+
 8002：TCPsocket端口（传输实时视频）
 
 <img src="README_IMAGE/SecurityRebot_img.png" alt="SecurityRebot_img" style="zoom: 50%;" />
