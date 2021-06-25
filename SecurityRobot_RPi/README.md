@@ -14,6 +14,6 @@ DHT11温湿度传感器： `25`
 树莓派终端输入
 
 ```shell
-sudo python3 SecurityRobot.py
+sudo python3 SecurityRobot_RPi/SecurityRobot.py
 ```
 
